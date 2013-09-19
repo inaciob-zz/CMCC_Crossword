@@ -1,0 +1,146 @@
+<html>
+		<!--NOTES: Browser detection is in oyMisc.js file -> Versions will need to be continuously updated.
+        			Any text formatting needs to be done in html markup, escape characters such as \n will not work.
+        -->
+<head>
+	<title>CMCC Crossword</title>	
+</head> 
+ 
+<body> 
+	<!-- 
+		here we have oygContext top DOM element to which the play area will be bound;
+		the HTML template has more binding sites for various visual parts of the puzzle: 
+		oygHeader, oygHeaderMenu, oygState, oygPuzzle, oygPuzzleFooter, oygListH, oygListV, oygFooter;
+		all element names for binding are prefixed with "oyg"
+	-->
+	<div id="oygContext" align="center" style="width:100%;">
+		<table class="oyOuterFrame" border="0" cellpadding="0" cellspacing="0">
+			<tr><td align="center">
+				<table class="oyFrame" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td colspan="5">
+							<table class="oyFrame" border="0" cellpadding="0" cellspacing="0" width="100%">
+								<tr class="oyHeader">
+									<td class="oyHeader">
+										<div id="oygHeader"></div>
+									</td>
+									<td align="right">	
+										<div id="oygHeaderMenu"></div>								
+									</td> 
+								</tr>					
+							</table>
+						</td>  
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="5"></td>
+					</tr>
+					<tr>  
+						<td rowspan="3" class="oyPuzzleCell" align="center" valign="top"> 
+							<div id="oygState"></div>
+							<div class="oyPuzzle" id="oygPuzzle"></div>
+							<div class="oyPuzzleFooter" id="oygPuzzleFooter"></div>			
+						</td>  
+						<td class="oyListCellDot">.</td>    
+						<td class="oyListCell" valign="top" id="oygListH"></td>
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="4"></td>
+					</tr>		
+					<tr>  
+						<td class="oyListCellDot">.</td>   
+						<td class="oyListCell" valign="top" id="oygListV"></td>					
+					</tr>
+					<tr style="height: 4px;">
+						<td colspan="5"></td>
+					</tr>			
+					<tr>
+						<td colspan="5" class="oyFooter"> 
+							<div id="oygFooter"></div>
+						</td>
+					</tr>			
+				</table>
+			</td></tr>
+		</table>
+		<div id="oygStatic" align="center" style="font-size: 10px; color: #4282B5; font-family: Arial;"></div>
+	</div>  
+
+	<!-- here we include all oy-cword-1.0 CSS files; all our style class name are prefixed with "oy"-->
+	<link rel="stylesheet" href="./oy-cword-1.0/css/base.css" type="text/css">
+
+	<!-- 
+		here we include all oy-cword-1.0 JavaScript files; order is important; 
+		all the files can be combined into one file to reduce number of separate requests
+	-->
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyPrologue.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyJsrAjax.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyClue.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMenu.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyPuzzle.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyServer.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oySign.js"></script>	
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyMisc.js"></script>	
+ 
+	<script type="text/javascript">
+
+		// 
+		//	here we include our own puzzle; it has to be fully prepared with all words properly arranged on the grid;
+		//	currently only one instance of the puzzle can be embedded into the page, we may fix this in the future
+		// 
+
+		var oygCrosswordPuzzle = new oyCrosswordPuzzle (
+		  //Universal ID for this puzzle
+		  "Hist001",
+		  //Relative path to library and image files
+		  "./oy-cword-1.0",
+		  //Our own 'cookie'
+		  "12345",
+		  //Title
+		  "Timeline Module Crossword Puzzle",
+		  //Description
+		  "This crossword tests your knowledge of the history of Chiropractic.",
+		  //Array of clues & answers for entire puzzle
+		  [
+		  	 /*Structure of oyCrossowrdClue is: Total length of answer, Clue, Answer, Unique ID found through oyMenu.js file,               Direction,X-axis position, and Y-axis position*/ 
+		  	 new oyCrosswordClue(11, "He was &Prime;the father of medicine&Prime; with his views on spinal manipulation popular for 2000 years.", "hippocrates", "eede5b0a004235e50d5be31a6192ec41", 0, 10, 0),
+			 new oyCrosswordClue(18, "Fill in the blanks of the Hippocratic Oath: I swear by _____  __  _______ and Asclepius and Hygeia and Panaceia and all the gods and goddesses, making them my witnesses, that I will fulfill according to my ability and judgment this oath and this covenant:", "apollothephysician", "a31015dcec1f815ad1c0003f99953c12", 0, 13, 6),
+			 new oyCrosswordClue(11, "A _______ is a practitioner of joint manipulation. Before the advent of chiropractors, osteopaths, and physical therapists, they were the main providers of this type of treatment.", "bonesetters", "1aff343b195e1095facb499d6e0b57fd", 1, 34, 0),
+			 new oyCrosswordClue(10, "BJ Palmer and much of the growing chiropractic profession promoted the spinal lesion (subluxation) to improve the health of an individual. At the time (1949) this theoretical paradigm countered the prevailing biomedical ______   _______ and the rise of external treatments such as drugs and surgery.", "germtheory", "06f3c7c824defcaf28c6b1faafd36c72", 0, 17, 21),
+			 new oyCrosswordClue(7, "What current health professionals need in order to practice that 19th century practitioners were not required to have.", "license", "718779752b851ac0dc6281a8c8d77e7e", 0, 9, 12),
+			 new oyCrosswordClue(14, "D.D. Palmer practiced ________  _________ before developing chiropractic.", "magnetichealer", "8b68a56fbea4a14126de66251dec7728", 0, 2, 24),
+			 new oyCrosswordClue(7, "D.D. Palmer helped fix the __________ of the first chiropractic patient.", "hearing", "c9cd1cc0763c6474f71fa9da5329b910", 0, 20, 24),
+			 new oyCrosswordClue(9, "Birth place of DD Palmer.", "portperry", "6c995308a00483671b7a4123762a7598", 0, 13, 5),
+			 new oyCrosswordClue(14, "_________ ___________ named himself the &Prime;Developer&Prime; of chiropractic for his educational leadership, making the new profession distinctive.", "bartlettjoshua", "5bf7a3dc8cd18bdf9e7fae349b5647dd", 0, 11, 3),
+			 new oyCrosswordClue(10, "Shegataro Morikubo: was jailed for practicing medicine and _____________ without a license.", "osteopathy", "baf8a2884eb76982c644fa3b4eaad6a5", 0, 0, 14),
+			 new oyCrosswordClue(12, "John Fitzlan Howard left the Palmer School of Chiropractic because BJ Palmer (owner of the school) wasn&prime;t interested in _______ curriculum? ", "sciencebased", "689a92d7ef3d69e040e1ed6b630dcbc9", 1, 34, 10),
+			 new oyCrosswordClue(10, "_____  _______ was the location of first chiropractic school on the west coast.", "losangeles", "a3e84b24a3f7ead866ed8916a2dac10e", 0, 2, 10),
+			 new oyCrosswordClue(14, "The diagnostic tool developed by BJ Palmer that turned out to be bogus.", "neurocalometer", "2fa70525dca17b163f687da0315effa1", 1, 30, 6),
+			new oyCrosswordClue(8, "What type of program was mandated in the 1852 by the Council on Chiropractic Education?", "fouryear", "4dfc6df367651ca6a6421b9d13691762", 1, 0, 13),
+			new oyCrosswordClue(5, "Acronym for first conference held in 1975 considered first interprofessional discussion between chiros, MDs and scientists about SMT", "ninds", "5b565817ad0458998319fac771e05517", 1, 3, 1),
+			new oyCrosswordClue(11, "Leading chiropractor in lawsuit against AMA for discrimination against chiropractic", "chesterwilk", "cb91c0459f12e15724b49d8a6046031f", 0, 0, 5),
+			new oyCrosswordClue(28, "First Canadian Chiro school", "robbinschiropracticinstitute", "6deb6e4ab8074192069cf53b2a783e80", 0, 0, 8),
+			new oyCrosswordClue(24, "Regulatory Act that preceded the Chiropractic Act of 1991", "druglesspractitionersact", "193bbf0b7af185cd408921a0e105a47e", 0, 7, 17),
+			new oyCrosswordClue(11, "The street in Toronto on  which CMCC&prime;s first campus was located.", "bloorstreet", "d5f6c1d06bc777bbf5e6203f92c862aa", 1, 21, 11),
+			new oyCrosswordClue(11, "CMCC&prime;s first classes were made up mostly of men who served in the military during ____ ____ ____.", "worldwartwo", "4b08603560a0319e21c1846c663b7802", 0, 24, 1),
+			new oyCrosswordClue(4, "Acronym of only other chiropractic school in Canada.", "uqtr", "4b2ec7a1753c98f75282451e7edac093", 1, 6, 2)
+		  ],
+		  35,	//Width of puzzle
+		  25	//Height of puzzle
+		);
+		
+		//Here we configure puzzle options, callbacks and publisher information
+		 
+		//Publisher information
+		
+		//oygCrosswordPuzzle.publisherName = "Library by Pavel Simakov";
+		//oygCrosswordPuzzle.publisherURL = "http://www.softwaresecretweapons.com";
+
+		// game exit URL -> Leads to KIRO at the moment
+		oygCrosswordPuzzle.leaveGameURL = "https://courses.cmcc.ca/portal/";  
+      
+		//This is how to toggle server support; score submission and action tracking can be disabled
+		oygCrosswordPuzzle.canTalkToServer = true;
+	</script>	
+	<!--Here we instantiate the puzzle and bind it to the HTML template above and show it to the user-->
+	<script type="text/javascript" src="./oy-cword-1.0/js/oyEpilogue.js"></script>	
+</body>  
+</html>
